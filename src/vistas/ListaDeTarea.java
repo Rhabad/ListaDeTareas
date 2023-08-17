@@ -8,6 +8,9 @@ package vistas;
  *
  * @author NICOLAS
  */
+import conexion.Conectar;
+import javax.swing.JOptionPane;
+
 public class ListaDeTarea extends javax.swing.JFrame {
 
     /**
@@ -54,6 +57,11 @@ public class ListaDeTarea extends javax.swing.JFrame {
         btnGuardar.setForeground(new java.awt.Color(51, 51, 255));
         btnGuardar.setText(">");
         btnGuardar.setBorder(null);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         txtArea.setBackground(new java.awt.Color(255, 255, 153));
         txtArea.setColumns(20);
@@ -116,7 +124,27 @@ public class ListaDeTarea extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        AgregarLista agre = new AgregarLista();
+        
+        
+        agre.setVisible(true);
+        agre.setResizable(false);
+        agre.setLocationRelativeTo(null);
+        
+        String lista = txtArea.getText();
+        
+        agre.agregarALaLista(lista);
+        
+        
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMenu;

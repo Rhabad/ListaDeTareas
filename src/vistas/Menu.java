@@ -4,6 +4,11 @@
  */
 package vistas;
 
+import conexion.Conectar;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author NICOLAS
@@ -13,8 +18,14 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    private ArrayList<String> registros = new ArrayList<>();
+    private DefaultListModel modelo = new DefaultListModel();
+    
+    
+    
     public Menu() {
         initComponents();
+        list.setModel(modelo);
     }
 
     /**
@@ -35,11 +46,6 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        list.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(list);
 
         btnLista.setText("Crear Lista");
@@ -50,8 +56,18 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar Lista");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnMostrarListas.setText("Mostrar Listas");
+        btnMostrarListas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarListasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,6 +121,27 @@ public class Menu extends javax.swing.JFrame {
         
         this.setVisible(false);
     }//GEN-LAST:event_btnListaActionPerformed
+
+    private void btnMostrarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarListasActionPerformed
+        Conectar con = new Conectar();
+        modelo.removeAllElements();
+        
+        ArrayList<String> registros = con.mostrarListas();
+        
+        for (String registro : registros) {
+            modelo.addElement(registro);
+        }
+        
+        
+    }//GEN-LAST:event_btnMostrarListasActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Conectar con = new Conectar();
+        
+        int idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Id de la lista a eliminar: "));
+        
+        con.eliminar(idEliminar);
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
